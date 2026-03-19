@@ -43,80 +43,312 @@
 
 <body>
 
+  <style>
+    :root {
+      --label-width: 145px;
+    }
+
+    .matrix-wrap {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .matrix-wrap + .matrix-wrap {
+      margin-top: 5rem;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .sample-title {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .sample-title.first-example {
+      margin-top: 0;
+    }
+
+    .prompt-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .prompt-label {
+      width: var(--label-width);
+      min-width: var(--label-width);
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .prompt-box {
+      flex: 1;
+      background: #ececec;
+      border-radius: 18px;
+      padding: 0.65rem 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .hl-blue {
+      color: #16a8e6;
+    }
+
+    .hl-red {
+      color: #ef3b39;
+      text-decoration: underline;
+    }
+
+    .u-black {
+      text-decoration: underline;
+    }
+
+    .matrix-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .matrix-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .row-label {
+      width: var(--label-width);
+      min-width: var(--label-width);
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .cell-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .col-header {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+
+    .cell-video {
+      width: 100%;
+      display: block;
+      background: #111;
+    }
+
+    @media (max-width: 1023px) {
+      :root {
+        --label-width: 130px;
+      }
+
+      .prompt-label {
+        font-size: 0.95rem;
+      }
+
+      .prompt-box {
+        font-size: 0.95rem;
+      }
+
+      .row-label {
+        font-size: 0.95rem;
+      }
+
+      .col-header {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .prompt-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .prompt-label {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .prompt-box {
+        font-size: 0.95rem;
+      }
+
+      .matrix-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .row-label {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .cell-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+
   <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Multi-Verifiers Dynamics</h2>
-          <!-- Text description area -->
-          <div class="box" style="margin: 2rem auto; background-color: #f5f5f5; max-width: 800px;">
-            <p class="has-text-centered">"Two colorful birds with vibrant blue, green, and white feathers are perched on a branch, <span style="color: red;">facing each other and interacting.</span> Their tails are long and feature black and white stripes. A lush green forest with blurred foliage serves as the background, and a bird chirping sound can be heard throughout."</p>
+    <div class="container is-fluid">
+      <h1 class="page-title">Prompt Test</h1>
+      <h2 class="sample-title first-example">Example 1</h2>
+      <div class="matrix-wrap">
+        <div class="prompt-row">
+          <div class="prompt-label">Original prompt</div>
+          <div class="prompt-box">"<span class="hl-blue">Oil is being poured</span> into a shiny stainless steel pot on a stove, <span class="hl-blue">creating ripples and small bubbles</span> on the surface. The pot is reflective, and the stove has a digital control panel with orange buttons. As the oil hits the hot surface, there is a slight sizzling noise, accompanied by background music."</div>
+        </div>
+
+        <div class="prompt-row">
+          <div class="prompt-label">Conversational style</div>
+          <div class="prompt-box">"I want a realistic video where <span class="hl-blue">oil is being poured</span> into a shiny stainless steel pot on a stove, <span class="hl-blue">creating ripples and small bubbles</span> on the surface. The pot is reflective, and the stove has a digital control panel with orange buttons. As the oil hits the hot surface, there is a slight sizzling noise, accompanied by background music."</div>
+        </div>
+
+        <div class="prompt-row">
+          <div class="prompt-label">Fragment style</div>
+          <div class="prompt-box">"<span class="hl-blue">oil being poured</span> into shiny stainless steel pot on stove, <span class="hl-blue">creating ripples, small bubbles</span> on surface, pot reflective, stove digital control panel, orange buttons, oil hits hot surface, slight sizzling noise, accompanied by background music"</div>
+        </div>
+
+        <div class="prompt-row" style="margin-bottom: 1.7rem;">
+          <div class="prompt-label">Grammar typo</div>
+          <div class="prompt-box">"<span class="hl-blue">Oil being poured</span> into a shiny stainless steel pot on a stove, <span class="hl-blue">creating ripples and </span><span class="hl-red">smll</span> <span class="hl-blue"> bubbles</span> on the surface. The pot is reflective, and the stove has a <span class="hl-red">digtal</span> control panel with orange buttons. As the oil hits the hot surface, there is a slight sizzling noise, accompanied by background music."</div>
+        </div>
+
+        <div class="matrix-row" style="margin-bottom: 1.5rem; align-items: flex-end;">
+          <div class="row-label"></div>
+          <div class="cell-grid">
+            <div class="col-header">Original prompt</div>
+            <div class="col-header">Conversational</div>
+            <div class="col-header">Fragment</div>
+            <div class="col-header">Typo</div>
+          </div>
+        </div>
+
+        <div class="matrix-row" style="margin-bottom: 2rem;">
+          <div class="row-label">Without ITS</div>
+          <div class="cell-grid">
+            <video id="naive-original" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_naive_base.mp4" type="video/mp4">
+            </video>
+            <video id="naive-conv" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_naive_conv.mp4" type="video/mp4">
+            </video>
+            <video id="naive-frag" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_naive_frag.mp4" type="video/mp4">
+            </video>
+            <video id="naive-typo" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_naive_typo.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <div class="matrix-row">
+          <div class="row-label">With ITS</div>
+          <div class="cell-grid">
+            <video id="evo-original" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_evo_base.mp4" type="video/mp4">
+            </video>
+            <video id="evo-conv" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_evo_conv.mp4" type="video/mp4">
+            </video>
+            <video id="evo-frag" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_evo_frag.mp4" type="video/mp4">
+            </video>
+            <video id="evo-typo" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0015_evo_typo.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
 
-      <div class="columns is-centered">
-        <div class="column" style="display: flex; flex-direction: column; align-items: center;">
-          <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">Single Verifier (VR)</h3>
-          <video id="video1" autoplay controls muted loop playsinline style="width: 100%; max-width: 100%;">
-            <source src="./static/videos/sample_0142_single.mp4" type="video/mp4">
-          </video>
+      <h2 class="sample-title">Example 2</h2>
+      <div class="matrix-wrap">
+        <div class="prompt-row">
+          <div class="prompt-label">Original prompt</div>
+          <div class="prompt-box">"<span class="hl-blue">Two colorful birds</span> with vibrant blue, green, and white feathers are perched on a branch, <span class="hl-blue">facing each other and interacting</span>. Their tails are long and feature black and white stripes. A <span class="hl-blue">lush green forest</span> with blurred foliage serves as the background, and a bird chirping sound can be heard throughout."</div>
         </div>
-        <div class="column" style="display: flex; flex-direction: column; align-items: center;">
-          <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">Multi Verifiers (VR+JS)</h3>
-          <video id="video2" autoplay controls muted loop playsinline style="width: 100%; max-width: 100%;">
-            <source src="./static/videos/sample_0142.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
 
-      <!-- 3rd row of videos -->
-      <div class="columns is-centered has-text-centered" style="margin-top: 3rem;">
-        <div class="column is-four-fifths">
-          <!-- Text description area -->
-          <div class="box" style="margin: 2rem auto; background-color: #f5f5f5; max-width: 800px;">
-            <p class="has-text-centered">"Cat meowing"</p>
+        <div class="prompt-row">
+          <div class="prompt-label">Conversational style</div>
+          <div class="prompt-box">"Umm, can you generate a super realistic video where <span class="hl-blue">two colorful birds</span> with vibrant blue, green, and white feathers are perched on a branch, <span class="hl-blue">facing each other and interacting</span>. Their tails are long and feature black and white stripes. A <span class="hl-blue">lush green forest</span> with blurred foliage serves as the background, and a bird chirping sound can be heard throughout? Please make the audio match naturally too."</div>
+        </div>
+
+        <div class="prompt-row">
+          <div class="prompt-label">Fragment style</div>
+          <div class="prompt-box">"<span class="hl-blue">two colorful birds</span>, vibrant blue, green, white feathers perched on branch, <span class="hl-blue">facing each other, interacting</span>, their tails long, feature black, white stripes, <span class="hl-blue">lush green forest, blurred foliage serves, background</span>, bird chirping sound throughout"</div>
+        </div>
+
+        <div class="prompt-row" style="margin-bottom: 1.7rem;">
+          <div class="prompt-label">Grammar typo</div>
+          <div class="prompt-box">"<span class="hl-blue">Two colorful birds</span> with vibrant blue, green, and white feathers are perched on a branch, <span class="hl-blue">facing each other and interacting</span>. <span class="hl-red">Thier</span> tails are long and feature black and white stripes. A <span class="hl-blue">lush green</span> <span class="hl-red">forst</span> with blurred foliage serves as the background, and a bird chirping sound can be heard <span class="hl-red">thrughout</span>."</div>
+        </div>
+
+        <div class="matrix-row" style="margin-bottom: 1.5rem; align-items: flex-end;">
+          <div class="row-label"></div>
+          <div class="cell-grid">
+            <div class="col-header">Original prompt</div>
+            <div class="col-header">Conversational</div>
+            <div class="col-header">Fragment</div>
+            <div class="col-header">Typo</div>
           </div>
         </div>
-      </div>
 
-      <div class="columns is-centered">
-        <div class="column" style="display: flex; flex-direction: column; align-items: center;">
-          <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">Single Verifier (VR)</h3>
-          <video id="video3" autoplay controls muted loop playsinline style="width: 70%; max-width: 70%;">
-            <source src="./static/videos/sample_151_single.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="column" style="display: flex; flex-direction: column; align-items: center;">
-          <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">Multi Verifiers (VR+JS)</h3>
-          <video id="video4" autoplay controls muted loop playsinline style="width: 70%; max-width: 70%;">
-            <source src="./static/videos/sample_151_multi.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-      <!-- 4th row of videos -->
-      <div class="columns is-centered has-text-centered" style="margin-top: 3rem;">
-        <div class="column is-four-fifths">
-          <!-- Text description area -->
-          <div class="box" style="margin: 2rem auto; background-color: #f5f5f5; max-width: 800px;">
-            <p class="has-text-centered">"Footsteps on snow"</p>
+        <div class="matrix-row" style="margin-bottom: 2rem;">
+          <div class="row-label">Without ITS</div>
+          <div class="cell-grid">
+            <video id="naive-original-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_naive_base.mp4" type="video/mp4">
+            </video>
+            <video id="naive-conv-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_naive_conv.mp4" type="video/mp4">
+            </video>
+            <video id="naive-frag-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_naive_frag.mp4" type="video/mp4">
+            </video>
+            <video id="naive-typo-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_naive_typo.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
-      </div>
 
-      <div class="columns is-centered">
-        <div class="column" style="display: flex; flex-direction: column; align-items: center;">
-          <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">Single Verifier (VR)</h3>
-          <video id="video3" autoplay controls muted loop playsinline style="width: 70%; max-width: 70%;">
-            <source src="./static/videos/sample_205_single.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="column" style="display: flex; flex-direction: column; align-items: center;">
-          <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">Multi Verifiers (VR+JS)</h3>
-          <video id="video4" autoplay controls muted loop playsinline style="width: 70%; max-width: 70%;">
-            <source src="./static/videos/sample_205_multi.mp4" type="video/mp4">
-          </video>
+        <div class="matrix-row">
+          <div class="row-label">With ITS</div>
+          <div class="cell-grid">
+            <video id="evo-original-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_evo_base.mp4" type="video/mp4">
+            </video>
+            <video id="evo-conv-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_evo_conv.mp4" type="video/mp4">
+            </video>
+            <video id="evo-frag-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_evo_frag.mp4" type="video/mp4">
+            </video>
+            <video id="evo-typo-142" class="cell-video" autoplay controls muted loop playsinline>
+              <source src="./static/videos/sample_0142_evo_typo.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
     </div>
